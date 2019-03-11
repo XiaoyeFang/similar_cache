@@ -14,7 +14,7 @@ import (
 //)
 func QuerySimilar(packageName string, skip, limit int32, disable string, enable_google_adsense string, ne_package_name string, notNexting bool) (reply models.ApkResult, err error) {
 	similarRes := &models.Similar{}
-	db, err := models.CreatDatabase()
+	db, err := config.CreatDatabase()
 	if err != nil {
 		panic(err)
 	}

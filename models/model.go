@@ -136,23 +136,4 @@ type Comment struct {
 	CommentScoreTotal int32 `json:"comment_score_total" bson:"comment_score_total"`
 }
 
-func CreatDatabase() (db *mgo.Database, err error) {
 
-	session, err := mgo.Dial(config.CacheConfig.MongoDBUrl)
-	if err != nil {
-
-		panic(err)
-	}
-	db = session.DB("")
-
-	return db, err
-}
-
-func ConnRedis() (conn redis.Conn, err error) {
-	//fmt.Println(config.CacheConfig.RedisDB.Url)
-	c, err := redis.Dial("tcp", config.CacheConfig.RedisDB.Url)
-	if err != nil {
-		panic(err)
-	}
-	return c, nil
-}

@@ -2,17 +2,16 @@ package cache
 
 import (
 	"fmt"
-	"similar_cache/config"
-	"similar_cache/models"
 	"github.com/garyburd/redigo/redis"
 	"github.com/golang/glog"
+	"similar_cache/config"
 )
 
 func HandlerCache(key string, value interface{}) (err error) {
 	//只缓存 similar_developer 接口
 	//SSDB  缓存10h，当缓存中有数据時，不再去查询mongodb
 	//key的起名加前缀
-	conn, err := models.ConnRedis()
+	conn, err := config.ConnRedis()
 	if err != nil {
 		panic(err)
 	}
@@ -27,7 +26,7 @@ func HandlerCache(key string, value interface{}) (err error) {
 
 func Getcache(key string) (val []byte, err error) {
 
-	conn, err := models.ConnRedis()
+	conn, err := config.ConnRedis()
 	if err != nil {
 		panic(err)
 	}
@@ -47,7 +46,7 @@ func Getcache(key string) (val []byte, err error) {
 }
 
 func DeleteRediskey() {
-	client, err := models.ConnRedis()
+	client, err := config.ConnRedis()
 	if err != nil {
 		panic(err)
 	}

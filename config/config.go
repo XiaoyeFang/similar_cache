@@ -3,7 +3,9 @@ package config
 import (
 	"encoding/json"
 	"errors"
+	"github.com/garyburd/redigo/redis"
 	"github.com/golang/glog"
+	"gopkg.in/mgo.v2"
 	"gopkg.in/yaml.v2"
 	"io/ioutil"
 	"strings"
@@ -44,6 +46,27 @@ func init() {
 			glog.V(0).Infoln("LoadConf", err)
 		}
 	}
+}
+
+func CreatDatabase() (db *mgo.Database, err error) {
+
+	session, err := mgo.Dial(CacheConfig.MongoDBUrl)
+	if err != nil {
+
+		panic(err)
+	}
+	db = session.DB("")
+
+	return db, err
+}
+
+func ConnRedis() (conn redis.Conn, err error) {
+	//fmt.Println(config.CacheConfig.RedisDB.Url)
+	c, err := redis.Dial("tcp", CacheConfig.RedisDB.Url)
+	if err != nil {
+		panic(err)
+	}
+	return c, nil
 }
 
 func LoadConf(filepath string) (*Config, error) {
