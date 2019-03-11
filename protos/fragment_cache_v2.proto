@@ -1,0 +1,106 @@
+syntax = "proto3";
+
+package protos;
+
+// for grpc-gateway
+//#gw#import "google/api/annotations.proto";
+
+service FragMentService {
+
+    //查询Similar
+    rpc QuerySimilar (SimilarRequest) returns (GeneralReply) {
+        //#gw#  option (google.api.http) = {
+        //#gw#  post: "/v1/fragment_cache_v2/query_similar"
+        //#gw#  body: "*"
+        //#gw#  };
+
+    }
+    //查询Developer
+    rpc QueryDeveloper (DeveloperRequest) returns (GeneralReply) {
+        //#gw#  option (google.api.http) = {
+        //#gw#  post: "/v1/fragment_cache_v2/query_developer"
+        //#gw#  body: "*"
+        //#gw#  };
+
+    }
+
+    //查询similar_developer
+    rpc QuerySimAndDev (SimDevRequest) returns (GeneralReply) {
+        //#gw#  option (google.api.http) = {
+        //#gw#  post: "/v1/fragment_cache_v2/similar_developer"
+        //#gw#  body: "*"
+        //#gw#  };
+
+    }
+
+}
+
+message SimilarRequest {
+    //namePackage 包名
+    string namePackage = 1;
+    //skip 跳过数量
+    int32 skip = 2;
+    //limit 限定数量
+    int32 limit = 3;
+    //disable 禁用的包名
+    string disable = 4;
+    //enableGoogleAdsense 是否禁用谷歌广告
+    string enableGoogleAdsense = 5;
+    //ne_package_name 要排除的包名
+    string nePackageName = 6;
+    //notNexting 是否有下一页
+    bool notNexting = 7;
+}
+
+message DeveloperRequest {
+    //developer_id 开发者id
+    string developerId = 1;
+    //skip 跳过数量
+    int32 skip = 2;
+    //limit 限定数量
+    int32 limit = 3;
+    //disable 禁用的包名
+    string disable = 4;
+    //enableGoogleAdsense 是否禁用谷歌广告
+    string enableGoogleAdsense = 5;
+    //ne_package_name 要排除的包名
+    string nePackageName = 6;
+    //notNexting 是否有下一页
+    bool notNexting = 7;
+}
+
+message SimDevRequest {
+    //namePackage 包名
+    string namePackage = 1;
+    //developer_id 开发者id
+    string developerId = 2;
+    //skip Similar跳过数量
+    int32 skip1 = 3;
+    //limit Similar限定数量
+    int32 limit1 = 4;
+    //disable Similar禁用的包名
+    string disable1 = 5;
+    //enableGoogleAdsense Similar是否禁用谷歌广告
+    string enableGoogleAdsense1 = 6;
+    //ne_package_name Similar要排除的包名
+    string nePackageName1 = 7;
+    //notNexting Similar是否有下一页
+    bool notNexting1 = 8;
+    //skip Developer跳过数量
+    int32 skip2 = 9;
+    //limit Developer限定数量
+    int32 limit2 = 10;
+    //disable Developer禁用的包名
+    string disable2 = 11;
+    //enableGoogleAdsense Developer是否禁用谷歌广告
+    string enableGoogleAdsense2 = 12;
+    //ne_package_name Developer要排除的包名
+    string nePackageName2 = 13;
+    //notNexting Developer是否有下一页
+    bool notNexting2 = 14;
+}
+
+
+message GeneralReply {
+    string reply = 1;
+}
